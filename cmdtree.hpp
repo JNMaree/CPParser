@@ -1,13 +1,11 @@
 #include <vector>
 #include <memory>
+#include "cmd.hpp"
 
-namespace command
+namespace cpparse
 {
 
-    class cmd{
-        const char* mnemonic;
-        std::vector<char*> arguments;
-    };
+    
 
     extern std::vector<std::unique_ptr<cmd>> cmdVector;
 

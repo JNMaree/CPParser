@@ -1,6 +1,6 @@
-#include "cmdlist.hpp"
+#include "cmdtree.hpp"
 
-namespace command
+namespace cpparse
 {
     std::vector<std::unique_ptr<cmd>> cmdVector;
 
