@@ -1,51 +1,60 @@
 #include <string>
 #include <vector>
+#include "lexer.hpp"
 
-/*
-Character definitions to be used by the lexer to tokenise the input string.
+// Character definitions to be used by the lexer to tokenise the input string.
 
-Delimiter:              - char: seperates tokens
-flagPre:                - char: tells parser the text is a flag or switch
-commentLinePre:         - String/char: treats subsequent text on line as a comment
-
-commentMultiLinePre/Post:    - pre-String/char: treats subsequent text as a comment 
-                                until post-String/char is parsed
+/*flagPre:                - char: parse the following text as a flag/switch
 */
-#define delimiter [' ','_']
-#define flagPre ['-','/']
+#define flagPre "-/"
+/*flagFullPre:            - String: full name for flag/switch
+*/
+#define flagFullPre "--"
+/*commentLinePre:         - String/char: treats subsequent text on line as a comment
+*/
 #define commentLinePre ["//","#"]
-
+/*commentMultiLinePre/Post:    - pre-String: treats subsequent text as a comment 
+                                until post-String is parsed
+*/
 #define commentMultiLinePre ["/*"]
 #define commentMultiLinePost ["*/"]
 
-struct source{        
-    const char* charArray;
+namespace cpparser{
 
-    size_t size(size_t startChar = 0, size_t stopChar = 0);
-};
+    struct flag
+    {
+        std::string name;
+        std::string fullname = "";
+    
+        std::string description;
+    };
 
-namespace cpparse{
+    struct flagValue : flag
+    {
+        union val{
+            bool boolean = false;
+            char character;
+            char* characterSet;
+            int integer;
+            float floatingPoint;
+        };
+    };
 
-    class cmd{
-
+    class cmd
+    {
         public:
-            char* mnemonic;
-            std::vector<char*> arguments;
+            std::string mnemonic;
+
+        private:
+            std::vector<flag> flags;
+        
     };
 
     //Function Prototypes
-    int process(const char* cmdArgs);
+    int process(std::string& cmdArgs);
 
 
 }//namespace:cpparser
 
-namespace lexer{
 
-   
-
-    //Function Prototypes
-    std::vector<char*> tokenise(const char* charArray);
-    size_t size(const char* charArray);
-
-}//namespace:lexer
 

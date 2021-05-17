@@ -4,9 +4,6 @@
 
 namespace cpparse
 {
-
-    
-
     extern std::vector<std::unique_ptr<cmd>> cmdVector;
 
 }//namespace:command
