@@ -1,29 +1,19 @@
+#ifndef CMD_HPP_
+#define CMD_HPP_
+
 #include <string>
 #include <vector>
 #include "lexer.hpp"
 
-// Character definitions to be used by the lexer to tokenise the input string.
 
-/*flagPre:                - char: parse the following text as a flag/switch
-*/
-#define flagPre "-/"
-/*flagFullPre:            - String: full name for flag/switch
-*/
-#define flagFullPre "--"
-/*commentLinePre:         - String/char: treats subsequent text on line as a comment
-*/
-#define commentLinePre ["//","#"]
-/*commentMultiLinePre/Post:    - pre-String: treats subsequent text as a comment 
-                                until post-String is parsed
-*/
-#define commentMultiLinePre ["/*"]
-#define commentMultiLinePost ["*/"]
+
+
 
 namespace cpparser{
 
     struct flag
     {
-        std::string name;
+        std::string name = "";
         std::string fullname = "";
     
         std::string description;
@@ -57,4 +47,4 @@ namespace cpparser{
 }//namespace:cpparser
 
 
-
+#endif

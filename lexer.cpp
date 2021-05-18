@@ -2,14 +2,60 @@
 
 namespace lexer{
 
-    std::vector<std::string> tokenise(std::string* source)
+    void Token::set()
+    {        
+        switch (text[0])
+        {
+        case flagPre:
+            if(text[1] == flagPre){     //--flagFull
+                text = text.substr(2);
+            }else{                      //-flag
+                text = text.substr(1);
+            }
+            break;
+        case stringPre:
+            
+            break;
+        default:
+            break;
+        }
+    }
+
+    Token::Token(std::string* source)
     {
-        std::vector<std::string> retVec;
+        text = *source;
+        set();
+    }
+
+    Token::Token(std::string& source)
+    {
+        text = source;
+        set();
+    }
+
+    std::vector<Token> tokenise(std::string* source)
+    {
+        std::vector<Token> retVecTokens;
         if (source->size() < 1){   //Empty String
-            return retVec;
+            return retVecTokens;
         }
 
         condense(source);
+
+        size_t posEnd = source->find_first_of(delimiter);
+        if(posEnd != std::string::npos)           //If >1 tokens
+        {
+            size_t pos = 0;
+            do{
+                Token token(source->substr(pos, posEnd));
+                retVecTokens.push_back(token);
+                posEnd = source->find_first_of(delimiter, ++posEnd);
+            }
+            while( posEnd != std::string::npos);
+        }else{                                      //If 1 token
+            Token token(source);
+            retVecTokens.push_back(token);
+        }
 
     }
 
@@ -19,13 +65,16 @@ namespace lexer{
         source->erase(0, source->find_first_not_of(whiteSpace));
         source->erase(source->find_last_not_of(whiteSpace) + 1);
 
-        //condense whiteSpace to remove false occurences and accidental doubles
-        size_t f = source->find_first_of(whiteSpace);
+        //create array of chars to search for in source
+        std::string rem = delimiter + whiteSpace;
+        
+        //condense to remove false occurences and accidental whitespaces or delimiters
+        size_t f = source->find_first_of(rem);
         while(f != std::string::npos)
         {
-            size_t g = source->find_first_not_of(whiteSpace, f) - f;
+            size_t g = source->find_first_not_of(rem, f) - f;
             source->replace(f, g, 1, delimiter[0]);
-            f = source->find_first_of(whiteSpace, f + 1);
+            f = source->find_first_of(rem, f + 1);
         }
     }
 
