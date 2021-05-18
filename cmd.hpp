@@ -6,11 +6,6 @@
 #include "lexer.hpp"
 
 
-
-
-
-namespace cpparser{
-
     struct flag
     {
         std::string name = "";
@@ -19,32 +14,19 @@ namespace cpparser{
         std::string description;
     };
 
-    struct flagValue : flag
-    {
-        union val{
-            bool boolean = false;
-            char character;
-            char* characterSet;
-            int integer;
-            float floatingPoint;
-        };
-    };
-
     class cmd
     {
         public:
             std::string mnemonic;
+            void help();
 
         private:
             std::vector<flag> flags;
         
     };
 
-    //Function Prototypes
-    int process(std::string& cmdArgs);
 
 
-}//namespace:cpparser
 
 
 #endif

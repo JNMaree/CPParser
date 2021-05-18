@@ -17,9 +17,6 @@
 /*flagPre:              - char: parse the following text as a flag/switch
 */
 #define flagPre '-'
-/*stringPre:            - char: the pre- and -post markers for strings
-*/
-#define stringPre '"'
 
 /*commentLinePre:         - String/char: treats subsequent text on line as a comment
 */
@@ -31,27 +28,35 @@
 #define commentMultiLinePre ["/*"]
 #define commentMultiLinePost ["*/"]
 
+/*stringPre:            - char: the pre- and -post markers for strings
+*/
+#define stringPre '"'
+/*bracketPre:            - char: the pre- and -post markers for strings
+
+*/
+#define parenthesisPre '('
+#define parenthesisPost ')'
+
 
 namespace lexer{
     
     enum Type{
+        undetermined,
         flag,
         flagFull,
         string,
         integer,
-        floatingP,
+        decimal,
     };
 
     class Token{
     public:
         std::string text;
-        Type type;
+        Type type = undetermined;
         Token(std::string* source);
         Token(std::string& source);
         void set();
     };
-
-    
 
 
     //Function Prototypes

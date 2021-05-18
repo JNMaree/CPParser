@@ -5,6 +5,10 @@
 
 int main()
 {
-    
+    bool exitCondition = false;
+    while(!exitCondition)
+    {
+        
+    }    
     return 0;
 }
