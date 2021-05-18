@@ -49,6 +49,7 @@ namespace lexer{
             do{
                 Token token(source->substr(pos, posEnd));
                 retVecTokens.push_back(token);
+                pos = posEnd;
                 posEnd = source->find_first_of(delimiter, ++posEnd);
             }
             while( posEnd != std::string::npos);
