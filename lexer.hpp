@@ -37,8 +37,10 @@
 #define parenthesisPre '('
 #define parenthesisPost ')'
 
-
-namespace lexer{
+namespace cpparser
+{
+namespace lexer
+{
     
     enum Type{
         undetermined,
@@ -66,5 +68,5 @@ namespace lexer{
 
 
 }//namespace:lexer
-
+}//namespace:cpparser
 #endif
