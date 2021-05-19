@@ -1,6 +1,9 @@
 #include "lexer.hpp"
 
-namespace lexer{
+namespace cpparser
+{
+namespace lexer
+{
 
     void Token::set()
     {        
@@ -80,3 +83,4 @@ namespace lexer{
     }
 
 }//namespace:lexer
+}//namespace:cpparser

@@ -5,28 +5,33 @@
 #include <vector>
 #include "lexer.hpp"
 
+namespace cpparser
+{
+namespace command
+{
 
     struct flag
     {
         std::string name = "";
         std::string fullname = "";
-    
+
         std::string description;
     };
 
     class cmd
     {
-        public:
-            std::string mnemonic;
-            void help();
-
-        private:
-            std::vector<flag> flags;
+    private:
+        std::vector<flag> flags;
         
+    public:
+        std::string mnemonic;
+        cmd();
+        cmd(std::string mnemonic);
+        ~cmd();
     };
 
+    extern std::vector<cmd> cmdList;
 
-
-
-
+} //namespace::command
+} //namespace::cpparser
 #endif
