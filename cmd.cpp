@@ -6,9 +6,12 @@ namespace command
 {
     std::vector<cmd> cmdList;
 
-    cmd::cmd(std::string mnemonic)
+    cmd::cmd(std::string cmdName, std::string cmdFullName)
     {
         cmd push;
+        push.name = cmdName;
+        if(!cmdFullName.empty())
+            push.nameFull = cmdFullName;
         cmdList.push_back(push);
     }
 
@@ -16,7 +19,7 @@ namespace command
     {
         for (size_t i = 0; i < cmdList.size(); ++i)
         {
-            if(cmdList[i].mnemonic == mnemonic)
+            if(cmdList[i].name == name)
                 cmdList.erase(cmdList.begin() + i);
         }
         

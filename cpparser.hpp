@@ -9,7 +9,7 @@ namespace cpparser{
     //Function Prototypes
     int process(std::string& cmdArgs);
 
-    
+    void create(std::string commandName, int response);
 
 }//namespace:cpparser
 

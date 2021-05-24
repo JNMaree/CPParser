@@ -10,7 +10,7 @@ namespace cpparser
 namespace command
 {
 
-    struct flag
+    struct option
     {
         std::string name = "";
         std::string fullname = "";
@@ -21,13 +21,17 @@ namespace command
     class cmd
     {
     private:
-        std::vector<flag> flags;
+        std::vector<option> options;
         
     public:
-        std::string mnemonic;
+        std::string name;
+        std::string nameFull;
+        std::string description;
         cmd();
-        cmd(std::string mnemonic);
+        cmd(std::string cmdName, std::string cmdFullname = "");
         ~cmd();
+
+
     };
 
     extern std::vector<cmd> cmdList;
