@@ -1,25 +1,22 @@
 #include <iostream>
-
-//Include command parser
-#include "cpparser.hpp"
+#include <string>
 
 int main()
 {
     //create some stuff
-    
+    std::cout << "HelloWorld!\n";
 
     //Program Loop
     bool exitCondition = false;
-    std::string input;
+    std::string uInput = "a";
     while(!exitCondition)
     {
-        std::cin >> input;
-        if(input == "exit"){
+        std::cout << "Enter Command:";
+        std::cin >> uInput;
+        if(uInput == "exit"){
             exitCondition = true;
-        }else{
-            cpparser::process(input);
         }
     }
-    std::cin >> input;
+    std::cin >> uInput;
     return 0;
 }
