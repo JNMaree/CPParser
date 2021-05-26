@@ -25,10 +25,23 @@ namespace command
         
     }
 
-    void add(std::string mnemonic,)
+    void cmd::addOption(std::string optionName, 
+                        std::string optionFullName, 
+                        std::string optionDescription)
     {
-        
+        option newOption;
+        newOption.name = optionName;
+        newOption.fullname = optionFullName;
+        newOption.description = optionDescription;
+        options.push_back(newOption);
     }
+
+    void add(std::string mnemonic, std::function<int()>)
+    {
+           
+    }
+
+    
 
 } //namespace:command
 } //namespace:cpparser

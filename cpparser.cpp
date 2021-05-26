@@ -13,7 +13,7 @@ namespace cpparser{
     }
 
     template<typename Function>
-    void create(std::string mnemonic, Function function)
+    void create(std::string mnemonic, Function& function)
     {
         function();
     }
