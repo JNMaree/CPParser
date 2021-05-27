@@ -1,5 +1,4 @@
 #include "cpparser.hpp"
-#include "cmd.hpp"
 
 
 namespace cpparser{
@@ -7,15 +6,15 @@ namespace cpparser{
     int process(std::string* fullCommand)
     {
         std::vector<lexer::Token> vecTokens = lexer::tokenise(fullCommand);
-
-
-        return 0;
+        int cmdexe = command::execute(&vecTokens);
+        if(cmdexe < 0)
+            return cmdexe;
     }
 
-    template<typename Function>
-    void create(std::string mnemonic, Function& function)
+    void initialise()
     {
-        function();
+           
     }
+
 
 }//namespace:cpparser
