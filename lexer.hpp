@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // Character definitions to be used by the lexer to tokenise the input string.
 
@@ -65,7 +66,8 @@ namespace lexer
 
     std::vector<Token> tokenise(std::string* source);
     void condense(std::string* source);
-
+    bool isSame(std::string& str, std::string& cmp);
+    bool isSameCase(std::string& str, std::string& cmp);
 
 }//namespace:lexer
 }//namespace:cpparser

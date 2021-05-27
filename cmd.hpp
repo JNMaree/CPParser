@@ -13,10 +13,9 @@ namespace command
 
     struct option
     {
-        std::string name;
-        std::string fullname;
+        std::string flag;
+        std::string flagFull;
         std::string description;
-
     };
 
     class cmd
@@ -30,19 +29,20 @@ namespace command
         std::string description;
 
         cmd();
-        cmd(std::string cmdName, std::string cmdFullname = "");
+        cmd(std::string cmdName, 
+            std::string cmdFullname = "");
         ~cmd();
 
-        void addOption( std::string optionName, 
-                        std::string optionFullName = "", 
-                        std::string description = "");
+        void addOption(std::string optionName, 
+                       std::string optionFullName = "", 
+                       std::string description = "");
     };
-
-    extern std::vector<cmd> cmdList;
 
     //function prototypes
 
-    void add(std::string mnemonic, std::function<int()>);
+    void add(std::string mnemonic, std::function<int(std::vector<lexer::Token>)>);
+
+    int execute(std::vector<lexer::Token>* tokenVector);
 
 } //namespace::command
 } //namespace::cpparser

@@ -82,5 +82,31 @@ namespace lexer
         }
     }
 
+    bool isSame(std::string& str, std::string& cmp)
+    {
+        if(!isSameCase(str, cmp)){
+            std::string strTr = str;         
+            std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+            std::string cmpTr = cmp;
+            std::transform(cmp.begin(), cmp.end(), cmp.begin(), ::toupper);
+            if(strTr.compare(cmpTr) == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return true;            
+        }
+    }
+
+    bool isSameCase(std::string& str, std::string& cmp)
+    {
+        if(str.compare(cmp) == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }//namespace:lexer
 }//namespace:cpparser
