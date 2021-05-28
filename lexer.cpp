@@ -5,42 +5,71 @@ namespace cpparser
 namespace lexer
 {
 
-    void Token::set()
+    void Token::setType()
     {        
-        switch (text[0])
+        std::string tmp = *text;
+        switch (tmp[0])    //Check first character of Token
         {
         case flagPre:
-            if(text[1] == flagPre){     //--flagFull
-                text = text.substr(2);
-            }else{                      //-flag
-                text = text.substr(1);
+            if(tmp[1] == flagPre){     //--
+                type = flagFull;
+            }else{                      //-
+                type = flag;
             }
             break;
-        case stringPre:
-            
+        case stringPre:                 //"
+            type = quoted;
+
             break;
         default:
             break;
         }
     }
 
+    Token::Token()
+    {
+        text = nullptr;
+        type = undetermined;
+    }
+
     Token::Token(std::string* source)
     {
-        text = *source;
-        set();
+        text = source;
+        setType();
     }
 
     Token::Token(std::string& source)
     {
-        text = source;
-        set();
+        text = &source;
+        setType();
     }
 
-    std::vector<Token> tokenise(std::string* source)
+    Tokentainer::~Tokentainer()
     {
-        std::vector<Token> retVecTokens;
+        arraySize = 0;
+        arrayCapacity = 0;
+        if  (arrayPtr)
+            delete []arrayPtr;
+    }
+
+    void Tokentainer::push(Token& toki)
+    {
+
+    }
+
+    bool Tokentainer::empty()
+    {
+        if(arraySize == 0)
+            return true;
+        else
+            return false;
+    }
+
+    Tokentainer tokenise(std::string* source)
+    {
+        Tokentainer retTokens;
         if (source->size() < 1){   //Empty String
-            return retVecTokens;
+            return retTokens;
         }
 
         condense(source);
@@ -51,14 +80,14 @@ namespace lexer
             size_t pos = 0;
             do{
                 Token token(source->substr(pos, posEnd));
-                retVecTokens.push_back(token);
+                retTokens.push(token);
                 pos = posEnd;
                 posEnd = source->find_first_of(delimiter, ++posEnd);
             }
             while( posEnd != std::string::npos);
         }else{                                      //If 1 token
             Token token(source);
-            retVecTokens.push_back(token);
+            retTokens.push(token);
         }
 
     }
@@ -70,7 +99,8 @@ namespace lexer
         source->erase(source->find_last_not_of(whiteSpace) + 1);
 
         //create array of chars to search for in source
-        std::string rem = delimiter + whiteSpace;
+        std::string rem = delimiter;
+        rem += whiteSpace;
         
         //condense to remove false occurences and accidental whitespaces or delimiters
         size_t f = source->find_first_of(rem);

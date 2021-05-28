@@ -9,7 +9,7 @@
 
 /** delimiter:          - char: seperates tokens
 */
-#define delimiter ' '
+#define delimiter " "
 
 /** whiteSpace:         - String: characters considered to be whiteSpace
 */
@@ -47,24 +47,51 @@ namespace lexer
         undetermined,
         flag,
         flagFull,
-        string,
+        quoted,
         integer,
         decimal,
+        file,
+        directory
     };
 
     class Token{
+        std::string* text;
+        static Type type;
+        void setType();
+
     public:
-        std::string text;
-        Type type = undetermined;
+        Token();
         Token(std::string* source);
         Token(std::string& source);
-        void set();
+        
+        Type getType();
+    };
+
+    class Tokentainer{
+    private:
+        Token* arrayPtr;
+        static size_t arraySize;
+        static size_t arrayCapacity;
+
+    public:
+        Token& operator[](size_t index){
+            if(index < 0 || index >= arraySize)
+                throw "Tokentainer:OutOfBounds\n";
+            return arrayPtr[index];
+        }
+
+        Tokentainer();
+        Tokentainer(size_t size, Token default = Token());
+        ~Tokentainer();
+
+        void push(Token& toki);
+
+        bool empty();
     };
 
 
     //Function Prototypes
-
-    std::vector<Token> tokenise(std::string* source);
+    Tokentainer tokenise(std::string* source);
     void condense(std::string* source);
     bool isSame(std::string& str, std::string& cmp);
     bool isSameCase(std::string& str, std::string& cmp);
